@@ -31,15 +31,6 @@ class macos_auto_puppet (
     mode    => '0644',
   }
 
-  # Ensure /etc/puppet_role exists and matches Facter
-  file { '/etc/puppet_role':
-    ensure  => file,
-    content => "${puppet_role}\n",
-    owner   => 'root',
-    group   => 'wheel',
-    mode    => '0644',
-  }
-
   # Deploy auto-puppet.sh to /usr/local/bin/ with execution permissions
   file { '/usr/local/bin/auto-puppet.sh':
     ensure => file,
