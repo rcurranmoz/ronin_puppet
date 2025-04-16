@@ -164,7 +164,7 @@ groups:
 
   - name: mozillavpn-b-1-osx
     targets:
-    # New Mac15 VPN worker
+    # New Mac15 VPN worker #
       - macmini-r8-102.test.releng.mdc1.mozilla.com
       - macmini-r8-179.test.releng.mdc1.mozilla.com
       - macmini-r8-182.test.releng.mdc1.mozilla.com
