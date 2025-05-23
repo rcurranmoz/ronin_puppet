@@ -4,32 +4,32 @@
 
 class macos_auto_puppet (
   Boolean $enabled = true,
-  String $puppet_role = $facts['puppet_role']
+  # String $puppet_role = $facts['puppet_role']
 ) {
-  # Ensure /etc/facter/ exists
-  file { '/etc/facter/':
-    ensure => directory,
-    owner  => 'root',
-    group  => 'wheel',
-    mode   => '0755',
-  }
+  # # Ensure /etc/facter/ exists
+  # file { '/etc/facter/':
+  #   ensure => directory,
+  #   owner  => 'root',
+  #   group  => 'wheel',
+  #   mode   => '0755',
+  # }
 
-  # Ensure /etc/facter/facts.d exists
-  file { '/etc/facter/facts.d':
-    ensure => directory,
-    owner  => 'root',
-    group  => 'wheel',
-    mode   => '0755',
-  }
+  # # Ensure /etc/facter/facts.d exists
+  # file { '/etc/facter/facts.d':
+  #   ensure => directory,
+  #   owner  => 'root',
+  #   group  => 'wheel',
+  #   mode   => '0755',
+  # }
 
-  # Set Puppet role dynamically
-  file { '/etc/facter/facts.d/puppet_role.txt':
-    ensure  => file,
-    content => "puppet_role=${puppet_role}\n",
-    owner   => 'root',
-    group   => 'wheel',
-    mode    => '0644',
-  }
+  # # Set Puppet role dynamically
+  # file { '/etc/facter/facts.d/puppet_role.txt':
+  #   ensure  => file,
+  #   content => "puppet_role=${puppet_role}\n",
+  #   owner   => 'root',
+  #   group   => 'wheel',
+  #   mode    => '0644',
+  # }
 
   # Deploy auto-puppet.sh to /usr/local/bin/ with execution permissions
   file { '/usr/local/bin/auto-puppet.sh':

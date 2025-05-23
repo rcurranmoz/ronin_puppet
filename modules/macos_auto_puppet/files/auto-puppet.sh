@@ -3,17 +3,20 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-# Purpose: Bootstrap a macOS 14+ host from post-install (or image) to a complete Puppet run.
+# Bootstrap a macOS host to a complete Puppet run.
 set -e
 export LANG=en_US.UTF-8
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/puppetlabs/bin"
 
 # Puppet configuration
+
+# This will probably need to change in the future to a more generic location
 LOCAL_PUPPET_REPO="/Users/relops/Desktop/puppet/ronin_puppet"
 PUPPET_ROLE_FILE="/etc/puppet_role"
 PUPPET_BIN="/opt/puppetlabs/bin/puppet"
 FACTER_BIN="/opt/puppetlabs/bin/facter"
-GIT_REPO_URL="https://github.com/mozilla-platform-ops/ronin_puppet.git"
+# This location will change before merge
+GIT_REPO_URL="https://github.com/rcurranmoz/ronin_puppet.git"
 GIT_BRANCH="auto_puppet_v2"
 
 # Override defaults with values from /etc/puppet/ronin_settings if the file exists
