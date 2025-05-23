@@ -23,23 +23,6 @@ case $facts['os']['name'] {
     }
 }
 
-# Role-based classification using puppet_role fact
-if $facts['puppet_role'] {
-  case $facts['puppet_role'] {
-    'gecko_t_osx_1400_r8_staging': {
-      include ::roles_profiles::roles::gecko_t_osx_1400_r8_staging
-    }
-    'mozilla_b_1_osx': {
-      include ::roles_profiles::roles::mozilla_b_1_osx
-    }
-    default: {
-      fail("Unknown puppet_role: ${facts['puppet_role']}")
-    }
-  }
-} else {
-  fail('No puppet_role fact provided. Cannot classify node.')
-}
-
 # node /vagrantup.com/ {
 #     # ok, no need to fail
 # }
