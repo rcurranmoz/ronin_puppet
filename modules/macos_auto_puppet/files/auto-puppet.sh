@@ -4,9 +4,7 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 # Purpose: Bootstrap a macOS 14+ host from post-install (or image) to a complete Puppet run.
-
 set -e
-
 export LANG=en_US.UTF-8
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/puppetlabs/bin"
 
@@ -18,7 +16,6 @@ FACTER_BIN="/opt/puppetlabs/bin/facter"
 GIT_REPO_URL="https://github.com/mozilla-platform-ops/ronin_puppet.git"
 GIT_BRANCH="auto_puppet_v2"
 
-<<<<<<< HEAD
 # Override defaults with values from /etc/puppet/ronin_settings if the file exists
 if [ -f "/etc/puppet/ronin_settings" ]; then
     echo "Loading settings from /etc/puppet/ronin_settings..."
@@ -32,12 +29,6 @@ fi
 
 echo "Using Puppet Repo: $GIT_REPO_URL"
 echo "Using Branch: $GIT_BRANCH"
-=======
-# Vault configuration
-export VAULT_ADDR="http://127.0.0.1:8200"
-VAULT_TOKEN="$(cat /etc/vault_token 2>/dev/null)"
-export VAULT_TOKEN
->>>>>>> 9ac239d5 (first commit)
 
 # Fail function
 fail() {
@@ -61,7 +52,6 @@ if [ ! -x "$FACTER_BIN" ]; then
     fail "Facter is missing or not executable."
 fi
 
-<<<<<<< HEAD
 # Clone or update Puppet repository
 if [ -d "$LOCAL_PUPPET_REPO/.git" ]; then
     echo "Checking existing Puppet repository..."
@@ -93,14 +83,9 @@ else
     echo "Cloning fresh Puppet repository..."
     git clone --branch "$GIT_BRANCH" "$GIT_REPO_URL" "$LOCAL_PUPPET_REPO" || fail "Failed to clone Puppet repository"
 fi
-=======
-# Remove existing Puppet repository and re-clone it
-rm -rf "$LOCAL_PUPPET_REPO"
-git clone --branch "$GIT_BRANCH" "$GIT_REPO_URL" "$LOCAL_PUPPET_REPO" || fail "Failed to clone Puppet repository"
->>>>>>> 9ac239d5 (first commit)
 
 # Ensure Puppet Repository Exists
-setup_local_puppet_manifest() {
+get_puppet_repo() {
     if [ ! -d "$LOCAL_PUPPET_REPO" ]; then
         fail "Local Puppet repository not found at $LOCAL_PUPPET_REPO"
     fi
@@ -119,15 +104,11 @@ node '$FQDN' {
     include ::roles_profiles::roles::$ROLE
 }
 EOF
-<<<<<<< HEAD
  }
-=======
-}
->>>>>>> 9ac239d5 (first commit)
 
 # Run Puppet
 run_puppet() {
-    setup_local_puppet_manifest
+    get_puppet_repo
     echo "Running puppet apply"
 
     PUPPET_OPTIONS=(
@@ -164,7 +145,6 @@ run_puppet() {
     esac
 }
 
-<<<<<<< HEAD
 # Retry Puppet Until Success, Checking for Updates Before Each Retry
 while true; do
     echo "Running Puppet apply..."
@@ -190,11 +170,6 @@ while true; do
         echo "No new changes found. Retrying Puppet apply in 60 seconds..."
     fi
 
-=======
-# Retry Puppet Until Success
-while ! run_puppet; do
-    echo "Puppet run failed; re-trying in 60 seconds"
->>>>>>> 9ac239d5 (first commit)
     sleep 60
 done
 

@@ -4,10 +4,6 @@
 
 class roles_profiles::profiles::macos_auto_puppet {
   class { 'macos_auto_puppet':
-<<<<<<< HEAD
     enabled => true,
-=======
-    enabled    => true,
->>>>>>> 9ac239d5 (first commit)
   }
 }
